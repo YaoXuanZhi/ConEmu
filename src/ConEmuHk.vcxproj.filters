@@ -16,12 +16,6 @@
     <Filter Include="MinHook">
       <UniqueIdentifier>{1A77E127-8656-60C3-8F6E-EB99FBCCC624}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MinHook\HDE">
-      <UniqueIdentifier>{3A75B69B-A62A-2F91-2F1F-29689BD32595}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MinHook\Trampoline">
-      <UniqueIdentifier>{04BF1CFA-F0A2-DD4F-5903-D8A24506C8D1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{000BCD17-6C75-818E-B5B3-3234215D5FE3}</UniqueIdentifier>
     </Filter>
@@ -117,30 +111,6 @@
     <ClInclude Include="ConEmuHk\resource.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="modules\minhook\include\MinHook.h">
-      <Filter>MinHook</Filter>
-    </ClInclude>
-    <ClInclude Include="modules\minhook\src\HDE\hde32.h">
-      <Filter>MinHook\HDE</Filter>
-    </ClInclude>
-    <ClInclude Include="modules\minhook\src\HDE\hde64.h">
-      <Filter>MinHook\HDE</Filter>
-    </ClInclude>
-    <ClInclude Include="modules\minhook\src\HDE\pstdint.h">
-      <Filter>MinHook\HDE</Filter>
-    </ClInclude>
-    <ClInclude Include="modules\minhook\src\HDE\table32.h">
-      <Filter>MinHook\HDE</Filter>
-    </ClInclude>
-    <ClInclude Include="modules\minhook\src\HDE\table64.h">
-      <Filter>MinHook\HDE</Filter>
-    </ClInclude>
-    <ClInclude Include="modules\minhook\src\buffer.h">
-      <Filter>MinHook\Trampoline</Filter>
-    </ClInclude>
-    <ClInclude Include="modules\minhook\src\trampoline.h">
-      <Filter>MinHook\Trampoline</Filter>
-    </ClInclude>
     <ClInclude Include="modules\terminals\ConnectorAPI.h">
       <Filter>Connector</Filter>
     </ClInclude>
@@ -226,21 +196,6 @@
     </ClCompile>
     <ClCompile Include="ConEmuHk\hlpConsole.cpp">
       <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="modules\minhook\src\HDE\hde32.c">
-      <Filter>MinHook\HDE</Filter>
-    </ClCompile>
-    <ClCompile Include="modules\minhook\src\HDE\hde64.c">
-      <Filter>MinHook\HDE</Filter>
-    </ClCompile>
-    <ClCompile Include="modules\minhook\src\buffer.c">
-      <Filter>MinHook\Trampoline</Filter>
-    </ClCompile>
-    <ClCompile Include="modules\minhook\src\hook.c">
-      <Filter>MinHook\Trampoline</Filter>
-    </ClCompile>
-    <ClCompile Include="modules\minhook\src\trampoline.c">
-      <Filter>MinHook\Trampoline</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

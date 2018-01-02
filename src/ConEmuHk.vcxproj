@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
@@ -37,37 +37,37 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141_xp</PlatformToolset>
+    <PlatformToolset>v140_xp</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141_xp</PlatformToolset>
+    <PlatformToolset>v140_xp</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141_xp</PlatformToolset>
+    <PlatformToolset>v140_xp</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141_xp</PlatformToolset>
+    <PlatformToolset>v140_xp</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Remote|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141_xp</PlatformToolset>
+    <PlatformToolset>v140_xp</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Remote|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141_xp</PlatformToolset>
+    <PlatformToolset>v140_xp</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -307,14 +307,6 @@
     <ClInclude Include="ConEmuHk\hlpConsole.h" />
     <ClInclude Include="ConEmuHk\hlpProcess.h" />
     <ClInclude Include="ConEmuHk\resource.h" />
-    <ClInclude Include="modules\minhook\include\MinHook.h" />
-    <ClInclude Include="modules\minhook\src\HDE\hde32.h" />
-    <ClInclude Include="modules\minhook\src\HDE\hde64.h" />
-    <ClInclude Include="modules\minhook\src\HDE\pstdint.h" />
-    <ClInclude Include="modules\minhook\src\HDE\table32.h" />
-    <ClInclude Include="modules\minhook\src\HDE\table64.h" />
-    <ClInclude Include="modules\minhook\src\buffer.h" />
-    <ClInclude Include="modules\minhook\src\trampoline.h" />
     <ClInclude Include="modules\terminals\ConnectorAPI.h" />
   </ItemGroup>
   <ItemGroup>
@@ -345,15 +337,6 @@
     <ClCompile Include="ConEmuHk\hkStdIO.cpp" />
     <ClCompile Include="ConEmuHk\hkWindow.cpp" />
     <ClCompile Include="ConEmuHk\hlpConsole.cpp" />
-    <ClCompile Include="modules\minhook\src\HDE\hde32.c">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="modules\minhook\src\HDE\hde64.c">
-      <ExcludedFromBuild>true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="modules\minhook\src\buffer.c" />
-    <ClCompile Include="modules\minhook\src\hook.c" />
-    <ClCompile Include="modules\minhook\src\trampoline.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ConEmuHk\export.def" />
