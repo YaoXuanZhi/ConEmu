@@ -1110,7 +1110,7 @@ CESERVER_REQ* CRealServer::cmdSetBackground(LPVOID pInst, CESERVER_REQ* pIn, UIN
 		}
 		else
 		{
-			pOut->BackgroundRet.nResult = mp_RCon->mp_VCon->SetBackgroundImageData(&pIn->Background);
+			//pOut->BackgroundRet.nResult = mp_RCon->mp_VCon->SetBackgroundImageData(&pIn->Background);
 		}
 	}
 

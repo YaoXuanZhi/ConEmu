@@ -628,6 +628,11 @@ void CFrameHolder::PaintFrame2k(HWND hWnd, HDC hdc, RECT &cr)
 }
 #endif
 
+//bool CFrameHolder::OnPaint(HWND hWnd, HDC hdc, UINT uMsg, LRESULT& lResult)
+//{
+//    return true;
+//}
+
 bool CFrameHolder::OnPaint(HWND hWnd, HDC hdc, UINT uMsg, LRESULT& lResult)
 {
 	if (hdc == NULL)

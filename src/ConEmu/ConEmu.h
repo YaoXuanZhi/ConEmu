@@ -731,6 +731,11 @@ class CConEmuMain
 		void CheckNeedUpdateTitle(LPCWSTR asRConTitle);
 		void UpdateTitle();
 		void UpdateProgress(/*BOOL abUpdateTitle*/);
+        /** 
+        * @brief: 伪Cli窗口回调函数
+        * @note   
+        * 
+        */
 		static LRESULT CALLBACK MainWndProc(HWND hWnd, UINT messg, WPARAM wParam, LPARAM lParam);
 		static LRESULT CALLBACK WorkWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 		BOOL isDialogMessage(MSG &Msg);

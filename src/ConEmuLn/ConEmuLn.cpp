@@ -265,6 +265,7 @@ int WINAPI PaintConEmuBackground(struct PaintBackgroundArg* pBk)
 	{
 		if ((pBk->Place & pbp_Panels) && gbLinesColorPanel)
 		{
+            // 绘制背景色
 			if (pBk->LeftPanel.bVisible)
 			{
 				PaintBack(pBk->hdc,

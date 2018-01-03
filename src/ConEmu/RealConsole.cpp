@@ -13040,11 +13040,11 @@ void CRealConsole::CloseConsole(bool abForceTerminate, bool abConfirm, bool abAl
 					SetInCloseConsole(true);
 					mp_ConEmu->DebugStep(_T("ConEmu: Execute SafeFarCloseMacro"));
 
-					if (!lbCleared)
-					{
-						lbCleared = true;
-						mp_VCon->SetBackgroundImageData(&BackClear);
-					}
+					//if (!lbCleared)
+					//{
+					//	lbCleared = true;
+					//	mp_VCon->SetBackgroundImageData(&BackClear);
+					//}
 
 					// Async, иначе ConEmu зависнуть может
 					PostMacro(pszMacro, TRUE);
@@ -13081,11 +13081,11 @@ void CRealConsole::CloseConsole(bool abForceTerminate, bool abConfirm, bool abAl
 			TerminateActiveProcess(false, nActivePID);
 		}
 
-		if (!lbCleared)
-		{
-			lbCleared = true;
-			mp_VCon->SetBackgroundImageData(&BackClear);
-		}
+		//if (!lbCleared)
+		//{
+		//	lbCleared = true;
+		//	mp_VCon->SetBackgroundImageData(&BackClear);
+		//}
 
 		CloseConsoleWindow(false/*NoConfirm - already confirmed*/);
 	}
@@ -16806,6 +16806,7 @@ void CRealConsole::CtrlWinAltSpace()
 	ShowConsoleOrGuiClient(-1); // Toggle visibility
 }
 
+// 选中Console时触发的定时器
 void CRealConsole::AutoCopyTimer()
 {
 	if (gpSet->isCTSAutoCopy && isSelectionPresent())

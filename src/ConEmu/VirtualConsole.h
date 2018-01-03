@@ -42,7 +42,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define MAX_COUNT_PART_BRUSHES 16*16*4
 #define MAX_SPACES 0x400
 
-class CBackground;
+//class CBackground;
 class CTaskBarGhost;
 class CVConGroup;
 class CTab;
@@ -58,6 +58,7 @@ const VConFlags
 	vf_None      = 0
 ;
 
+// 终端窗口类
 class CVirtualConsole :
 	public CVConRelease,
 	public CConEmuChild
@@ -216,19 +217,19 @@ class CVirtualConsole :
 	public:
 		// Плагин к фару может установить свою "картинку" для панелей (например, нарисовать в фоне букву диска)
 		//void FreeBackgroundImage(); // Освободить (если создан) HBITMAP для mp_BkImgData
-		SetBackgroundResult SetBackgroundImageData(CESERVER_REQ_SETBACKGROUND* apImgData); // вызывается при получении нового Background
-		bool HasBackgroundImage(LONG* pnBgWidth, LONG* pnBgHeight);
+		//SetBackgroundResult SetBackgroundImageData(CESERVER_REQ_SETBACKGROUND* apImgData); // вызывается при получении нового Background
+		//bool HasBackgroundImage(LONG* pnBgWidth, LONG* pnBgHeight);
 		//void NeedBackgroundUpdate();
-		#ifdef APPDISTINCTBACKGROUND
-		CBackgroundInfo* GetBackgroundObject();
-		#endif
-		void NeedBackgroundUpdate();
+		//#ifdef APPDISTINCTBACKGROUND
+		//CBackgroundInfo* GetBackgroundObject();
+		//#endif
+		//void NeedBackgroundUpdate();
 	protected:
 		// Содержит текущий фон (из плагина или из файла-цвета по настройке)
-		CBackground*     mp_Bg;
-		#ifdef APPDISTINCTBACKGROUND
-		CBackgroundInfo* mp_BgInfo; // RefRelease, global object list
-		#endif
+		//CBackground*     mp_Bg;
+		//#ifdef APPDISTINCTBACKGROUND
+		//CBackgroundInfo* mp_BgInfo; // RefRelease, global object list
+		//#endif
 
 
 		const AppSettings* mp_Set;

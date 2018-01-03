@@ -395,6 +395,7 @@ bool CTaskBarGhost::NeedSnapshotCache()
 	return false;
 }
 
+// 创建任务栏上的缓存缩略图
 HBITMAP CTaskBarGhost::CreateThumbnail(int nWidth, int nHeight)
 {
 	HBITMAP hbm = NULL;
@@ -751,6 +752,7 @@ LRESULT CTaskBarGhost::OnClose()
 	return 0;
 }
 
+// 响应用户将鼠标移至任务栏的程序图标上，此时会发送一个缩略图
 LRESULT CTaskBarGhost::OnDwmSendIconicThumbnail(short anWidth, short anHeight)
 {
 	// This tab window is being asked to provide its iconic bitmap. This indicates
@@ -764,6 +766,7 @@ LRESULT CTaskBarGhost::OnDwmSendIconicThumbnail(short anWidth, short anHeight)
 		BITMAP bi = {};
 		GetObject(hThumb, sizeof(bi), &bi);
 #endif
+        // 应用缩略图
 		hr = gpConEmu->DwmSetIconicThumbnail(mh_Ghost, hThumb);
 		DeleteObject(hThumb);
 	}

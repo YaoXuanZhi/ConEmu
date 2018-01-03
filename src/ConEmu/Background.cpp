@@ -725,6 +725,7 @@ bool CBackground::PutPluginBackgroundImage(/*CBackground* pBack,*/ LONG X, LONG 
 	if (gpSet->isFadeInactive && !gpConEmu->isMeForeground(false))
 		lbFade = true;
 
+    // 绘制背景图片
 	bool lbRc = FillBackground(&mp_BkImgData->bmp, X, Y, Width, Height, eUpLeft, lbFade);
 
 	//mb_BkImgChanged = FALSE;
@@ -774,12 +775,12 @@ bool CBackground::PrepareBackground(CVirtualConsole* pVCon, HDC&/*OUT*/ phBgDc, 
 		return gpSetCls->PrepareBackground(pVCon, &phBgDc, &pbgBmpSize);
 		#else
 
-		CBackgroundInfo* pBgFile = pVCon->GetBackgroundObject();
-		if (!pBgFile)
-		{
-			_ASSERTE(FALSE && "Background object must be created in VCon");
-			return false;
-		}
+		//CBackgroundInfo* pBgFile = pVCon->GetBackgroundObject();
+		//if (!pBgFile)
+		//{
+		//	_ASSERTE(FALSE && "Background object must be created in VCon");
+		//	return false;
+		//}
 
 		if (!mb_NeedBgUpdate)
 		{
@@ -791,7 +792,7 @@ bool CBackground::PrepareBackground(CVirtualConsole* pVCon, HDC&/*OUT*/ phBgDc, 
 			}
 		}
 
-		pBgFile->PollBackgroundFile();
+		//pBgFile->PollBackgroundFile();
 
 		VConOffset = pVCon->GetVConOffset();
 		SIZE BackSize = pVCon->GetBackSize();
@@ -814,34 +815,34 @@ bool CBackground::PrepareBackground(CVirtualConsole* pVCon, HDC&/*OUT*/ phBgDc, 
 				lMaxBgWidth = rcWork.right - rcWork.left;
 				lMaxBgHeight = rcWork.bottom - rcWork.top;
 			}
-			else if (gpSet->bgOperation == eFit || gpSet->bgOperation == eFill)
-			{
-				lMaxBgWidth = rcWork.right - rcWork.left;
-				lMaxBgHeight = rcWork.bottom - rcWork.top;
-				// Correct aspect ratio
-				const BITMAPFILEHEADER* pBgImgData = pBgFile->GetBgImgData();
-				const BITMAPINFOHEADER* pBmp = pBgImgData ? (const BITMAPINFOHEADER*)(pBgImgData+1) : NULL;
-				if (pBmp
-					&& (rcWork.bottom - rcWork.top) > 0 && (rcWork.right - rcWork.left) > 0)
-				{
-					double ldVCon = (rcWork.right - rcWork.left) / (double)(rcWork.bottom - rcWork.top);
-					double ldImg = pBmp->biWidth / (double)pBmp->biHeight;
-					if (ldVCon > ldImg)
-					{
-						if (gpSet->bgOperation == eFit)
-							lMaxBgWidth = (LONG)(lMaxBgHeight * ldImg);
-						else
-							lMaxBgHeight = (LONG)(lMaxBgWidth / ldImg);
-					}
-					else
-					{
-						if (gpSet->bgOperation == eFill)
-							lMaxBgWidth = (LONG)(lMaxBgHeight * ldImg);
-						else
-							lMaxBgHeight = (LONG)(lMaxBgWidth / ldImg);
-					}
-				}
-			}
+			//else if (gpSet->bgOperation == eFit || gpSet->bgOperation == eFill)
+			//{
+			//	lMaxBgWidth = rcWork.right - rcWork.left;
+			//	lMaxBgHeight = rcWork.bottom - rcWork.top;
+			//	// Correct aspect ratio
+			//	const BITMAPFILEHEADER* pBgImgData = pBgFile->GetBgImgData();
+			//	const BITMAPINFOHEADER* pBmp = pBgImgData ? (const BITMAPINFOHEADER*)(pBgImgData+1) : NULL;
+			//	if (pBmp
+			//		&& (rcWork.bottom - rcWork.top) > 0 && (rcWork.right - rcWork.left) > 0)
+			//	{
+			//		double ldVCon = (rcWork.right - rcWork.left) / (double)(rcWork.bottom - rcWork.top);
+			//		double ldImg = pBmp->biWidth / (double)pBmp->biHeight;
+			//		if (ldVCon > ldImg)
+			//		{
+			//			if (gpSet->bgOperation == eFit)
+			//				lMaxBgWidth = (LONG)(lMaxBgHeight * ldImg);
+			//			else
+			//				lMaxBgHeight = (LONG)(lMaxBgWidth / ldImg);
+			//		}
+			//		else
+			//		{
+			//			if (gpSet->bgOperation == eFill)
+			//				lMaxBgWidth = (LONG)(lMaxBgHeight * ldImg);
+			//			else
+			//				lMaxBgHeight = (LONG)(lMaxBgWidth / ldImg);
+			//		}
+			//	}
+			//}
 			else if (gpSet->bgOperation == eTile)
 			{
 				// Max между клиентской (точнее Workspace) областью окна и размером текущего монитора
@@ -858,102 +859,102 @@ bool CBackground::PrepareBackground(CVirtualConsole* pVCon, HDC&/*OUT*/ phBgDc, 
 				NeedBackgroundUpdate();
 		}
 
-		if (mb_NeedBgUpdate)
-		{
-			mb_NeedBgUpdate = false;
-			lbForceUpdate = true;
-			_ASSERTE(isMainThread());
-			//MSectionLock SBG; SBG.Lock(&mcs_BgImgData);
-			//BITMAPFILEHEADER* pImgData = mp_BgImgData;
-			BackgroundOp op = (BackgroundOp)gpSet->bgOperation;
-			const BITMAPFILEHEADER* pBgImgData = pBgFile->GetBgImgData();
-			BOOL lbImageExist = (pBgImgData != NULL);
-			//BOOL lbVConImage = FALSE;
-			//LONG lBgWidth = 0, lBgHeight = 0;
-			//CVirtualConsole* pVCon = gpConEmu->ActiveCon();
+		//if (mb_NeedBgUpdate)
+		//{
+		//	mb_NeedBgUpdate = false;
+		//	lbForceUpdate = true;
+		//	_ASSERTE(isMainThread());
+		//	//MSectionLock SBG; SBG.Lock(&mcs_BgImgData);
+		//	//BITMAPFILEHEADER* pImgData = mp_BgImgData;
+		//	BackgroundOp op = (BackgroundOp)gpSet->bgOperation;
+		//	const BITMAPFILEHEADER* pBgImgData = pBgFile->GetBgImgData();
+		//	BOOL lbImageExist = (pBgImgData != NULL);
+		//	//BOOL lbVConImage = FALSE;
+		//	//LONG lBgWidth = 0, lBgHeight = 0;
+		//	//CVirtualConsole* pVCon = gpConEmu->ActiveCon();
 
-			////MSectionLock SBK;
-			//if (apVCon && gpSet->isBgPluginAllowed)
-			//{
-			//	//SBK.Lock(&apVCon->csBkImgData);
-			//	if (apVCon->HasBackgroundImage(&lBgWidth, &lBgHeight)
-			//	        && lBgWidth && lBgHeight)
-			//	{
-			//		lbVConImage = lbImageExist = TRUE;
-			//	}
-			//}
+		//	////MSectionLock SBK;
+		//	//if (apVCon && gpSet->isBgPluginAllowed)
+		//	//{
+		//	//	//SBK.Lock(&apVCon->csBkImgData);
+		//	//	if (apVCon->HasBackgroundImage(&lBgWidth, &lBgHeight)
+		//	//	        && lBgWidth && lBgHeight)
+		//	//	{
+		//	//		lbVConImage = lbImageExist = TRUE;
+		//	//	}
+		//	//}
 
-			//mb_WasVConBgImage = lbVConImage;
+		//	//mb_WasVConBgImage = lbVConImage;
 
-			if (lbImageExist)
-			{
-				mb_BgLastFade = (!bIsForeground && gpSet->isFadeInactive);
-				TODO("Переделать, ориентироваться только на размер картинки - неправильно");
-				TODO("DoubleView - скорректировать X,Y");
+		//	if (lbImageExist)
+		//	{
+		//		mb_BgLastFade = (!bIsForeground && gpSet->isFadeInactive);
+		//		TODO("Переделать, ориентироваться только на размер картинки - неправильно");
+		//		TODO("DoubleView - скорректировать X,Y");
 
-				//if (lbVConImage)
-				//{
-				//	if (lMaxBgWidth && lMaxBgHeight)
-				//	{
-				//		lBgWidth = lMaxBgWidth;
-				//		lBgHeight = lMaxBgHeight;
-				//	}
+		//		//if (lbVConImage)
+		//		//{
+		//		//	if (lMaxBgWidth && lMaxBgHeight)
+		//		//	{
+		//		//		lBgWidth = lMaxBgWidth;
+		//		//		lBgHeight = lMaxBgHeight;
+		//		//	}
 
-				//	if (!mp_Bg->CreateField(lBgWidth, lBgHeight) ||
-				//	        !apVCon->PutBackgroundImage(mp_Bg, 0,0, lBgWidth, lBgHeight))
-				//	{
-				//		delete mp_Bg;
-				//		mp_Bg = NULL;
-				//	}
-				//}
-				//else
-				{
-					const BITMAPINFOHEADER* pBmp = (const BITMAPINFOHEADER*)(pBgImgData+1);
+		//		//	if (!mp_Bg->CreateField(lBgWidth, lBgHeight) ||
+		//		//	        !apVCon->PutBackgroundImage(mp_Bg, 0,0, lBgWidth, lBgHeight))
+		//		//	{
+		//		//		delete mp_Bg;
+		//		//		mp_Bg = NULL;
+		//		//	}
+		//		//}
+		//		//else
+		//		{
+		//			const BITMAPINFOHEADER* pBmp = (const BITMAPINFOHEADER*)(pBgImgData+1);
 
-					if (!lMaxBgWidth || !lMaxBgHeight)
-					{
-						// Сюда мы можем попасть только в случае eUpLeft/eUpRight/eDownLeft/eDownRight
-						lMaxBgWidth = pBmp->biWidth;
-						lMaxBgHeight = pBmp->biHeight;
-					}
+		//			if (!lMaxBgWidth || !lMaxBgHeight)
+		//			{
+		//				// Сюда мы можем попасть только в случае eUpLeft/eUpRight/eDownLeft/eDownRight
+		//				lMaxBgWidth = pBmp->biWidth;
+		//				lMaxBgHeight = pBmp->biHeight;
+		//			}
 
-					//LONG lImgX = 0, lImgY = 0, lImgW = lMaxBgWidth, lImgH = lMaxBgHeight;
+		//			//LONG lImgX = 0, lImgY = 0, lImgW = lMaxBgWidth, lImgH = lMaxBgHeight;
 
-					//if ((gpSet->bgOperation == eFit || gpSet->bgOperation == eFill)
-					//	&& (rcWork.bottom - rcWork.top) > 0 && (rcWork.right - rcWork.left) > 0)
-					//{
-					//	double ldVCon = (rcWork.right - rcWork.left) / (double)(rcWork.bottom - rcWork.top);
-					//	double ldImg = pBmp->biWidth / (double)pBmp->biHeight;
-					//	if (ldVCon > ldImg)
-					//	{
-					//		if (gpSet->bgOperation == eFit)
-					//			lMaxBgWidth = lMaxBgHeight * ldImg;
-					//		else
-					//			lMaxBgHeight = lMaxBgWidth / ldImg;
-					//	}
-					//	else
-					//	{
-					//		if (gpSet->bgOperation == eFill)
-					//			lMaxBgWidth = lMaxBgHeight * ldImg;
-					//		else
-					//			lMaxBgHeight = lMaxBgWidth / ldImg;
-					//	}
-					//}
+		//			//if ((gpSet->bgOperation == eFit || gpSet->bgOperation == eFill)
+		//			//	&& (rcWork.bottom - rcWork.top) > 0 && (rcWork.right - rcWork.left) > 0)
+		//			//{
+		//			//	double ldVCon = (rcWork.right - rcWork.left) / (double)(rcWork.bottom - rcWork.top);
+		//			//	double ldImg = pBmp->biWidth / (double)pBmp->biHeight;
+		//			//	if (ldVCon > ldImg)
+		//			//	{
+		//			//		if (gpSet->bgOperation == eFit)
+		//			//			lMaxBgWidth = lMaxBgHeight * ldImg;
+		//			//		else
+		//			//			lMaxBgHeight = lMaxBgWidth / ldImg;
+		//			//	}
+		//			//	else
+		//			//	{
+		//			//		if (gpSet->bgOperation == eFill)
+		//			//			lMaxBgWidth = lMaxBgHeight * ldImg;
+		//			//		else
+		//			//			lMaxBgHeight = lMaxBgWidth / ldImg;
+		//			//	}
+		//			//}
 
-					if (!CreateField(lMaxBgWidth, lMaxBgHeight) ||
-						!FillBackground(pBgImgData, 0,0,lMaxBgWidth,lMaxBgHeight, op, mb_BgLastFade))
-					{
-						bSucceeded = false;
-					}
-				}
-			}
-			else
-			{
-				bSucceeded = false;
-			}
-		}
+		//			if (!CreateField(lMaxBgWidth, lMaxBgHeight) ||
+		//				!FillBackground(pBgImgData, 0,0,lMaxBgWidth,lMaxBgHeight, op, mb_BgLastFade))
+		//			{
+		//				bSucceeded = false;
+		//			}
+		//		}
+		//	}
+		//	else
+		//	{
+		//		bSucceeded = false;
+		//	}
+		//}
 
-		pBgFile->Release();
+		//pBgFile->Release();
 
 		#endif
 	}
@@ -993,6 +994,7 @@ bool CBackground::PrepareBackground(CVirtualConsole* pVCon, HDC&/*OUT*/ phBgDc, 
 				lBgHeight = lMaxBgHeight;
 			}
 
+            // 贴上背景图片
 			if (!CreateField(lBgWidth, lBgHeight) ||
 				!PutPluginBackgroundImage(0,0, lBgWidth, lBgHeight))
 			{
@@ -1032,6 +1034,7 @@ wrap:
 	return lbForceUpdate;
 }
 
+// 判断背景图片是否有效
 bool CBackground::HasPluginBackgroundImage(LONG* pnBgWidth, LONG* pnBgHeight)
 {
 	if (!this) return false;

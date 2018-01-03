@@ -3127,7 +3127,8 @@ void CSettings::OnPanelViewAppeared(BOOL abAppear)
 bool CSettings::IsBackgroundEnabled(CVirtualConsole* apVCon)
 {
 	// Если плагин фара установил свой фон
-	if (gpSet->isBgPluginAllowed && apVCon && apVCon->HasBackgroundImage(NULL,NULL))
+	//if (gpSet->isBgPluginAllowed && apVCon && apVCon->HasBackgroundImage(NULL,NULL))
+	if (false)
 	{
 		if (apVCon->isEditor || apVCon->isViewer)
 			return (gpSet->isBgPluginAllowed == 1);
@@ -3140,9 +3141,10 @@ bool CSettings::IsBackgroundEnabled(CVirtualConsole* apVCon)
 	if (!isBackgroundImageValid)
 		return false;
 	#else
-	CBackgroundInfo* pBgObject = apVCon ? apVCon->GetBackgroundObject() : mp_BgInfo;
-	bool bBgExist = (pBgObject && pBgObject->GetBgImgData() != NULL);
-	SafeRelease(pBgObject);
+	//CBackgroundInfo* pBgObject = apVCon ? apVCon->GetBackgroundObject() : mp_BgInfo;
+	//bool bBgExist = (pBgObject && pBgObject->GetBgImgData() != NULL);
+	//SafeRelease(pBgObject);
+    bool bBgExist = false;
 	if (!bBgExist)
 		return false;
 	#endif
@@ -3268,11 +3270,11 @@ void CSettings::NeedBackgroundUpdate()
 	#ifndef APPDISTINCTBACKGROUND
 	mb_NeedBgUpdate = TRUE;
 	#else
-	CVConGuard VCon;
-	for (INT_PTR i = 0; CVConGroup::GetVCon(i, &VCon); i++)
-	{
-		VCon->NeedBackgroundUpdate();
-	}
+	//CVConGuard VCon;
+	//for (INT_PTR i = 0; CVConGroup::GetVCon(i, &VCon); i++)
+	//{
+	//	VCon->NeedBackgroundUpdate();
+	//}
 	#endif
 }
 

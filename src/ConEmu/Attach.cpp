@@ -816,6 +816,7 @@ bool CAttachDlg::StartAttach(HWND ahAttachWnd, DWORD anPID, DWORD anBits, Attach
 	wcscpy_c(szSrv, gpConEmu->ms_ConEmuBaseDir);
 	wcscat_c(szSrv, (anBits==64) ? L"\\ConEmuC64.exe" : L"\\ConEmuC.exe");
 
+    // 控制台程序
 	if (abAltMode && (anType == apt_Console))
 	{
 		swprintf_c(szArgs, L" /ATTACH /CONPID=%u /GID=%u /GHWND=%08X",
@@ -830,6 +831,7 @@ bool CAttachDlg::StartAttach(HWND ahAttachWnd, DWORD anPID, DWORD anBits, Attach
 	si.dwFlags = STARTF_USESHOWWINDOW;
 	si.wShowWindow = SW_HIDE;
 
+    // 窗口程序
 	if (anType == apt_Gui)
 	{
 		gpConEmu->CreateGuiAttachMapping(anPID);
@@ -845,7 +847,7 @@ bool CAttachDlg::StartAttach(HWND ahAttachWnd, DWORD anPID, DWORD anBits, Attach
 
 		sei.hwnd = ghWnd;
 		sei.fMask = (abAltMode ? 0 : SEE_MASK_NO_CONSOLE)|SEE_MASK_NOCLOSEPROCESS|SEE_MASK_NOASYNC;
-		sei.lpVerb = L"runas";
+		sei.lpVerb = L"runas"; //设置管理员权限
 		sei.lpFile = szSrv;
 		sei.lpParameters = szArgs;
 		sei.lpDirectory = gpConEmu->ms_ConEmuBaseDir;

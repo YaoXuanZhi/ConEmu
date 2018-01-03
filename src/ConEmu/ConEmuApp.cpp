@@ -3131,8 +3131,44 @@ int CheckForDebugArgs(LPCWSTR asCmdLine)
 	return nDbg;
 }
 
+class CCliHelper:public CCliplus{
+public:
+    CCliHelper()
+    {
+        SetSubSysType(EM_WINDOWS);
+    }
+protected:
+    //void AcceptCommand(char *szCmd)
+ //   {
+ //       LOGW("Invaild Input << " << szCmd);
+ //   }
+
+    //void ShowHelpTips()
+    //{
+    //	LOGI("ConEmu /?...");
+    //}
+
+    //void ShowQuitTip()
+    //{
+    //	LOGI("按下任意键退出...");
+    //}
+};
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+	//ILog4zManager::getRef().setLoggerName(LOG4Z_MAIN_LOGGER_ID, "ConEmuApp");
+	//ILog4zManager::getRef().setLoggerPath(LOG4Z_MAIN_LOGGER_ID, "./");
+	////ILog4zManager::getRef().enableLogger(LOG4Z_MAIN_LOGGER_ID, false);
+	//ILog4zManager::getRef().setLoggerDisplay(LOG4Z_MAIN_LOGGER_ID, true);
+	//ILog4zManager::getRef().setLoggerLevel(LOG4Z_MAIN_LOGGER_ID, LOG_LEVEL_TRACE);
+	//ILog4zManager::getRef().setLoggerFileLine(LOG4Z_MAIN_LOGGER_ID, true);
+	//ILog4zManager::getRef().setLoggerThreadId(LOG4Z_MAIN_LOGGER_ID, true);
+	//ILog4zManager::getRef().setLoggerOutFile(LOG4Z_MAIN_LOGGER_ID, true);
+	//ILog4zManager::getRef().start();
+
+    CCliHelper cliHelper;
+    cliHelper.Open();
+
 	DEBUGSTRSTARTUP(L"WinMain entered");
 	int iMainRc = 0;
 

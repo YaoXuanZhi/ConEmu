@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConEmu", "ConEmu.vcxproj", "{8CCC3EAC-786E-6982-6129-7DD64D6AF0D2}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common-kernel", "common-kernel.vcxproj", "{9CA77168-0868-ED9E-D1A2-361C3D22327B}"
@@ -10,7 +12,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConEmuC", "ConEmuC.vcxproj", "{4F5E1834-BB3D-97CF-C455-22A630B4FD30}"
 	ProjectSection(ProjectDependencies) = postProject
 		{732824B7-5FF5-7EC2-880E-6D6A743AB450} = {732824B7-5FF5-7EC2-880E-6D6A743AB450}
-		{3F2924B7-2BF6-7EC2-540F-6D6A403BB450} = {3F2924B7-2BF6-7EC2-540F-6D6A403BB450}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConEmuCD", "ConEmuCD.vcxproj", "{732824B7-5FF5-7EC2-880E-6D6A743AB450}"

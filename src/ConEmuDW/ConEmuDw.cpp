@@ -26,6 +26,9 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+/*****************************************************************************
+*  - [x] Hook外部Console程序的WriteConsoleOutputW()，然后将所获得的文本重定向到ConEmu的Console上
+*****************************************************************************/
 #define SHOWDEBUGSTR
 
 #include <windows.h>

@@ -51,6 +51,10 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "../common/MAssert.h"
 #include "../common/MStrDup.h"
 #include "../common/CEStr.h"
+#include "../modules/log4z/log4z.h"
+#include "../modules/Cliplus/Cliplus.h"
+
+using namespace zsummer::log4z;
 
 #if defined(__GNUC__) && !defined(__MINGW64_VERSION_MAJOR)
 #define wmemmove_s(d,ds,s,ss) wmemmove(d,s,ss)

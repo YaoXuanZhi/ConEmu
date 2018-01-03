@@ -1245,6 +1245,8 @@ LRESULT CConEmuChild::OnPaint()
 		UNREFERENCED_PARAMETER(hDc);
 
 		//RECT rcClient = VCon->GetDcClientRect();
+
+        // 绘制文字到伪Cli窗口上
 		VCon->PaintVCon(ps.hdc);
 
 		if (bRightClickingPaint)

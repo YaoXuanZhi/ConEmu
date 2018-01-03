@@ -213,9 +213,9 @@ CVirtualConsole::CVirtualConsole(CConEmuMain* pOwner, int index)
 	, mb_RequiredForceUpdate(true)
 	, mb_LastFadeFlag(false)
 	, mn_LastBitsPixel()
-	#ifdef APPDISTINCTBACKGROUND
-	, mp_BgInfo(NULL)
-	#endif
+	//#ifdef APPDISTINCTBACKGROUND
+	//, mp_BgInfo(NULL)
+	//#endif
 	, TransparentInfo()
 	, isFade(false)
 	, isForeground(true)
@@ -269,7 +269,7 @@ CVirtualConsole::CVirtualConsole(CConEmuMain* pOwner, int index)
 	, pnBackRGB(NULL)
 	, m_etr()
 	, mb_DialogsChanged(false)
-	, mp_Bg(NULL)
+	//, mp_Bg(NULL)
 	, mpsz_LogScreen(NULL)
 	, mdw_LastError(0)
 	, nBgImageColors(0)
@@ -359,10 +359,10 @@ bool CVirtualConsole::Constructor(RConStartArgsEx *args)
 	mh_Heap = HeapCreate(HEAP_GENERATE_EXCEPTIONS, nMinHeapSize, 0);
 	cinf.dwSize = 15; cinf.bVisible = TRUE;
 
-	mp_Bg = new CBackground();
-	#ifdef APPDISTINCTBACKGROUND
-	mp_BgInfo = args->pszWallpaper ? CBackgroundInfo::CreateBackgroundObject(args->pszWallpaper, false) : NULL;
-	#endif
+	//mp_Bg = new CBackground();
+	//#ifdef APPDISTINCTBACKGROUND
+	//mp_BgInfo = args->pszWallpaper ? CBackgroundInfo::CreateBackgroundObject(args->pszWallpaper, false) : NULL;
+	//#endif
 
 	mp_Colors = gpSet->GetColors(-1);
 
@@ -494,10 +494,10 @@ CVirtualConsole::~CVirtualConsole()
 	//	mcs_BkImgData = NULL;
 	//}
 
-	SafeDelete(mp_Bg);
-	#ifdef APPDISTINCTBACKGROUND
-	SafeRelease(mp_BgInfo);
-	#endif
+	//SafeDelete(mp_Bg);
+	//#ifdef APPDISTINCTBACKGROUND
+	//SafeRelease(mp_BgInfo);
+	//#endif
 
 	//FreeBackgroundImage();
 
@@ -2642,18 +2642,18 @@ bool CVirtualConsole::UpdatePrepare(HDC *ahDc, MSectionLock *pSDC, MSectionLock 
 		nIndexes = BgImageColorsDefaults; // Defaults
 	nBgImageColors = nIndexes;
 
-	if (drawImage)
-	{
-		// Она заодно проверит, не изменился ли файл?
-		if (mp_Bg->PrepareBackground(this, hBgDc, bgBmpSize))
-		{
-			isForce = true;
-		}
-		else
-		{
-			drawImage = (hBgDc!=NULL);
-		}
-	}
+	//if (drawImage)
+	//{
+	//	// Она заодно проверит, не изменился ли файл?
+	//	if (mp_Bg->PrepareBackground(this, hBgDc, bgBmpSize))
+	//	{
+	//		isForce = true;
+	//	}
+	//	else
+	//	{
+	//		drawImage = (hBgDc!=NULL);
+	//	}
+	//}
 
 	// скопировать данные из состояния консоли В mpn_ConAttrEx/mpsz_ConChar
 	BOOL bConDataChanged = isForce || mp_RCon->IsConsoleDataChanged();
@@ -2673,7 +2673,7 @@ bool CVirtualConsole::UpdatePrepare(HDC *ahDc, MSectionLock *pSDC, MSectionLock 
 	return true;
 }
 
-
+// 刷新文字，逐字刷新（为了处理ANSI字符）
 void CVirtualConsole::UpdateText()
 {
 	_ASSERTE((HDC)m_DC!=NULL);
@@ -2903,6 +2903,8 @@ void CVirtualConsole::UpdateText()
 		// Second run - paint text
 		partIndex = 0;
 		m_DC.SetBkMode(TRANSPARENT);
+
+        // 绘制文字，逐字绘制
 		while (lp.GetNextPart(partIndex, part, nextPart))
 		{
 			const CharAttr& attr = part->Attrs[0];
@@ -3538,6 +3540,7 @@ bool CVirtualConsole::Blit(HDC hPaintDC, int anX, int anY, int anShowWidth, int 
 	return lbRc;
 }
 
+// 拉伸界面
 bool CVirtualConsole::StretchPaint(HDC hPaintDC, int anX, int anY, int anShowWidth, int anShowHeight)
 {
 	if (!this)
@@ -5052,78 +5055,78 @@ void CVirtualConsole::CharAttrFromConAttr(WORD conAttr, CharAttr* pAttr)
 
 // вызывается при получении нового Background (CECMD_SETBACKGROUND) из плагина
 // и для очистки при закрытии (рестарте) консоли
-SetBackgroundResult CVirtualConsole::SetBackgroundImageData(CESERVER_REQ_SETBACKGROUND* apImgData)
-{
-	if (!this) return esbr_Unexpected;
+//SetBackgroundResult CVirtualConsole::SetBackgroundImageData(CESERVER_REQ_SETBACKGROUND* apImgData)
+//{
+//	if (!this) return esbr_Unexpected;
+//
+//	//if (!isMainThread())
+//	//{
+//
+//	// При вызове из серверной нити (только что пришло из плагина)
+//	if (mp_RCon->isConsoleClosing())
+//		return esbr_ConEmuInShutdown;
+//
+//	bool bUpdate = false;
+//	SetBackgroundResult rc = mp_Bg->SetPluginBackgroundImageData(apImgData, bUpdate);
+//
+//	// Need force update?
+//	if (bUpdate)
+//		Update(true);
+//
+//	return rc;
+//
+//}
 
-	//if (!isMainThread())
-	//{
+//#ifdef APPDISTINCTBACKGROUND
+//CBackgroundInfo* CVirtualConsole::GetBackgroundObject()
+//{
+//	if (!this) return NULL;
+//	if (mp_BgInfo)
+//	{
+//		mp_BgInfo->AddRef();
+//		return mp_BgInfo;
+//	}
+//	return gpSetCls->GetBackgroundObject();
+//}
+//#endif
 
-	// При вызове из серверной нити (только что пришло из плагина)
-	if (mp_RCon->isConsoleClosing())
-		return esbr_ConEmuInShutdown;
+//void CVirtualConsole::NeedBackgroundUpdate()
+//{
+//	if (this && mp_Bg)
+//		mp_Bg->NeedBackgroundUpdate();
+//}
 
-	bool bUpdate = false;
-	SetBackgroundResult rc = mp_Bg->SetPluginBackgroundImageData(apImgData, bUpdate);
-
-	// Need force update?
-	if (bUpdate)
-		Update(true);
-
-	return rc;
-
-}
-
-#ifdef APPDISTINCTBACKGROUND
-CBackgroundInfo* CVirtualConsole::GetBackgroundObject()
-{
-	if (!this) return NULL;
-	if (mp_BgInfo)
-	{
-		mp_BgInfo->AddRef();
-		return mp_BgInfo;
-	}
-	return gpSetCls->GetBackgroundObject();
-}
-#endif
-
-void CVirtualConsole::NeedBackgroundUpdate()
-{
-	if (this && mp_Bg)
-		mp_Bg->NeedBackgroundUpdate();
-}
-
-bool CVirtualConsole::HasBackgroundImage(LONG* pnBgWidth, LONG* pnBgHeight)
-{
-	if (!this) return false;
-
-	if (!mp_RCon->isFar())
-		return false;
-
-	return mp_Bg->HasPluginBackgroundImage(pnBgWidth, pnBgHeight);
-
-	//if (!mb_BkImgExist || !(mp_BkImgData || (mp_BkEmfData && mb_BkEmfChanged))) return false;
-
-	//// Возвращаем mn_BkImgXXX чтобы не беспокоиться об указателе mp_BkImgData
-
-	//if (pnBgWidth)
-	//	*pnBgWidth = mn_BkImgWidth;
-
-	//if (pnBgHeight)
-	//	*pnBgHeight = mn_BkImgHeight;
-
-	//return (mn_BkImgWidth != 0 && mn_BkImgHeight != 0);
-	////MSectionLock SBK; SBK.Lock(&csBkImgData);
-	////if (mp_BkImgData)
-	////{
-	////	BITMAPINFOHEADER* pBmp = (BITMAPINFOHEADER*)(mp_BkImgData+1);
-	////	if (pnBgWidth)
-	////		*pnBgWidth = pBmp->biWidth;
-	////	if (pnBgHeight)
-	////		*pnBgHeight = pBmp->biHeight;
-	////}
-	////return mp_BkImgData;
-}
+//bool CVirtualConsole::HasBackgroundImage(LONG* pnBgWidth, LONG* pnBgHeight)
+//{
+//	if (!this) return false;
+//
+//	if (!mp_RCon->isFar())
+//		return false;
+//
+//	return mp_Bg->HasPluginBackgroundImage(pnBgWidth, pnBgHeight);
+//
+//	//if (!mb_BkImgExist || !(mp_BkImgData || (mp_BkEmfData && mb_BkEmfChanged))) return false;
+//
+//	//// Возвращаем mn_BkImgXXX чтобы не беспокоиться об указателе mp_BkImgData
+//
+//	//if (pnBgWidth)
+//	//	*pnBgWidth = mn_BkImgWidth;
+//
+//	//if (pnBgHeight)
+//	//	*pnBgHeight = mn_BkImgHeight;
+//
+//	//return (mn_BkImgWidth != 0 && mn_BkImgHeight != 0);
+//	////MSectionLock SBK; SBK.Lock(&csBkImgData);
+//	////if (mp_BkImgData)
+//	////{
+//	////	BITMAPINFOHEADER* pBmp = (BITMAPINFOHEADER*)(mp_BkImgData+1);
+//	////	if (pnBgWidth)
+//	////		*pnBgWidth = pBmp->biWidth;
+//	////	if (pnBgHeight)
+//	////		*pnBgHeight = pBmp->biHeight;
+//	////}
+//	////return mp_BkImgData;
+//}
 
 void CVirtualConsole::OnTitleChanged()
 {
