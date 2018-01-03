@@ -3058,9 +3058,11 @@ int ProcessCmdArg(LPCWSTR cmdNew, bool isScript, bool isBare, CEStr& szReady, bo
 	return 0;
 }
 
+typedef std::basic_string<wchar_t, std::char_traits<wchar_t>, ConEmuAllocator<wchar_t>> wstring_t;
+
 class CTestApp {
 protected:
-    //std::string m_szId;
+    //wstring_t m_szId;
     CEStr m_szId;
 
 public:
@@ -3074,22 +3076,12 @@ private:
     bool isCan;
 
 public:
-    virtual void Print()
-    {
-        fwprintf(stdout, L"测试指令:%s\n", &m_szId[0]);
-    }
-
     CTestAppEx() { isCan = true; }
     virtual ~CTestAppEx() {}
-    //static CTestAppEx* getInstance();
-
-    //static CTestAppEx & getRef();
-    //static CTestAppEx * getPtr();
-
 };
 
 CTestApp::CTestApp() {
-    m_szId = L"heelalfjasl";
+    m_szId.Set(L"heelalfjasl");
 }
 CTestApp::~CTestApp() {
 }
@@ -3098,15 +3090,6 @@ void CTestApp::Print()
 {
     fwprintf(stdout, L"%s\n", &m_szId[0]);
 }
-
-//CTestAppEx* CTestAppEx::getInstance()
-//{
-//    static CTestAppEx m_obj;
-//    return &m_obj;
-//}
-//
-//CTestAppEx & CTestAppEx::getRef() { return *getInstance(); }
-//CTestAppEx * CTestAppEx::getPtr() { return getInstance(); }
 
 // -debug, -debugi, -debugw
 int CheckForDebugArgs(LPCWSTR asCmdLine)
@@ -3188,42 +3171,25 @@ public:
         SetSubSysType(EM_WINDOWS);
     }
 protected:
-	//void AcceptCommand(char *szCmd)
- //   {
- //       LOGW("Invaild Input << " << szCmd);
- //   }
+	void AcceptCommand(char *szCmd)
+    {
+        LOGW("Invaild Input << " << szCmd);
+    }
+	void ShowHelpTips()
+	{
+		LOGI("ConEmu /?...");
+	}
 
-	//void ShowHelpTips()
-	//{
-	//	LOGI("ConEmu /?...");
-	//}
-
-	//void ShowQuitTip()
-	//{
-	//	LOGI("按下任意键退出...");
-	//}
+	void ShowQuitTip()
+	{
+		LOGI("按下任意键退出...");
+	}
 };
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	//ILog4zManager::getRef().setLoggerName(LOG4Z_MAIN_LOGGER_ID, "ConEmuApp");
-	//ILog4zManager::getRef().setLoggerPath(LOG4Z_MAIN_LOGGER_ID, "./");
-	////ILog4zManager::getRef().enableLogger(LOG4Z_MAIN_LOGGER_ID, false);
-	//ILog4zManager::getRef().setLoggerDisplay(LOG4Z_MAIN_LOGGER_ID, true);
-	//ILog4zManager::getRef().setLoggerLevel(LOG4Z_MAIN_LOGGER_ID, LOG_LEVEL_TRACE);
-	//ILog4zManager::getRef().setLoggerFileLine(LOG4Z_MAIN_LOGGER_ID, true);
-	//ILog4zManager::getRef().setLoggerThreadId(LOG4Z_MAIN_LOGGER_ID, true);
-	//ILog4zManager::getRef().setLoggerOutFile(LOG4Z_MAIN_LOGGER_ID, true);
-	//ILog4zManager::getRef().start();
-
-    CCliHelper cliHelper;
-    cliHelper.Open();
-
-    //CTestAppEx::getInstance()->getRef().Print();
-    CTestAppEx m_testObj;
-    m_testObj.Print();
-
 	DEBUGSTRSTARTUP(L"WinMain entered");
+
 	int iMainRc = 0;
 
 	g_hInstance = hInstance;
@@ -3243,7 +3209,25 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	gOSVer.dwOSVersionInfoSize = sizeof(gOSVer);
 	GetOsVersionInformational(&gOSVer);
 	gnOsVer = ((gOSVer.dwMajorVersion & 0xFF) << 8) | (gOSVer.dwMinorVersion & 0xFF);
+    // 初始化堆，在此之前的堆分配都会导致程序错误
 	HeapInitialize();
+
+    CTestAppEx m_obj;
+    m_obj.Print();
+
+	ILog4zManager::getRef().setLoggerName(LOG4Z_MAIN_LOGGER_ID, "ConEmuApp");
+	ILog4zManager::getRef().setLoggerPath(LOG4Z_MAIN_LOGGER_ID, "./");
+	//ILog4zManager::getRef().enableLogger(LOG4Z_MAIN_LOGGER_ID, false);
+	ILog4zManager::getRef().setLoggerDisplay(LOG4Z_MAIN_LOGGER_ID, true);
+	ILog4zManager::getRef().setLoggerLevel(LOG4Z_MAIN_LOGGER_ID, LOG_LEVEL_TRACE);
+	ILog4zManager::getRef().setLoggerFileLine(LOG4Z_MAIN_LOGGER_ID, true);
+	ILog4zManager::getRef().setLoggerThreadId(LOG4Z_MAIN_LOGGER_ID, true);
+	ILog4zManager::getRef().setLoggerOutFile(LOG4Z_MAIN_LOGGER_ID, true);
+	ILog4zManager::getRef().start();
+
+    CCliHelper cliHelper;
+    cliHelper.Open();
+
 	AssertMsgBox = MsgBox;
 	gfnHooksUnlockerProc = HooksUnlockerProc;
 	gn_MainThreadId = GetCurrentThreadId();
@@ -3909,6 +3893,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	}
 
 done:
+    cliHelper.Close();
+    ILog4zManager::getRef().stop();
 	DEBUGSTRSTARTUP(L"Terminating");
 	ShutdownGuiStep(L"MessageLoop terminated");
 //------------------------------------------------------------------------
@@ -3941,6 +3927,5 @@ wrap:
 	{
 		TerminateProcess(GetCurrentProcess(), iMainRc);
 	}
-    cliHelper.Close();
 	return iMainRc;
 }

@@ -32,6 +32,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <windows.h>
 #include <CommCtrl.h>
 
+// 简单封装了tooltips相关API
 class CToolTip
 {
 public:

@@ -163,5 +163,50 @@ void SafeDelete(T*& p)
 
 	p = NULL;
 }
+using namespace std;
+template <typename T>  
+class ConEmuAllocator : public allocator<T>  
+{  
+public:  
+    typedef size_t   size_type;  
+    typedef typename allocator<T>::pointer              pointer;  
+    typedef typename allocator<T>::value_type           value_type;  
+    typedef typename allocator<T>::const_pointer        const_pointer;  
+    typedef typename allocator<T>::reference            reference;  
+    typedef typename allocator<T>::const_reference      const_reference;  
+  
+    pointer allocate(size_type _Count, const void* _Hint = NULL)  
+    {  
+        _Count *= sizeof(value_type);  
+        void *rtn = malloc(_Count);  
+  
+        return (pointer)rtn;  
+    }  
+  
+    void deallocate(pointer _Ptr, size_type _Count)  
+    {  
+        free(_Ptr);  
+    }  
+  
+    template<class _Other>  
+    struct rebind  
+    {   // convert this type to allocator<_Other>  
+        typedef ConEmuAllocator<_Other> other;  
+    };  
+  
+    ConEmuAllocator() throw()   
+    {}   
+  
+    /*MyAllc(const MyAllc& __a) throw()  
+        : allocator<T>(__a)  
+    {}*/  
+  
+    template<typename _Tp1>  
+    ConEmuAllocator(const ConEmuAllocator<_Tp1>&) throw()   
+    {}   
+  
+    ~ConEmuAllocator() throw()   
+    {}  
+};  
 
 #endif // #ifndef MEMORY_HEADER_DEFINED
