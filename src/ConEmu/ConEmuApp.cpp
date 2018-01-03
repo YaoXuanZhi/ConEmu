@@ -3058,6 +3058,56 @@ int ProcessCmdArg(LPCWSTR cmdNew, bool isScript, bool isBare, CEStr& szReady, bo
 	return 0;
 }
 
+class CTestApp {
+protected:
+    //std::string m_szId;
+    CEStr m_szId;
+
+public:
+    CTestApp();
+    virtual ~CTestApp();
+    virtual void Print();
+};
+
+class CTestAppEx:public CTestApp {
+private:
+    bool isCan;
+
+public:
+    virtual void Print()
+    {
+        fwprintf(stdout, L"测试指令:%s\n", &m_szId[0]);
+    }
+
+    CTestAppEx() { isCan = true; }
+    virtual ~CTestAppEx() {}
+    //static CTestAppEx* getInstance();
+
+    //static CTestAppEx & getRef();
+    //static CTestAppEx * getPtr();
+
+};
+
+CTestApp::CTestApp() {
+    m_szId = L"heelalfjasl";
+}
+CTestApp::~CTestApp() {
+}
+
+void CTestApp::Print()
+{
+    fwprintf(stdout, L"%s\n", &m_szId[0]);
+}
+
+//CTestAppEx* CTestAppEx::getInstance()
+//{
+//    static CTestAppEx m_obj;
+//    return &m_obj;
+//}
+//
+//CTestAppEx & CTestAppEx::getRef() { return *getInstance(); }
+//CTestAppEx * CTestAppEx::getPtr() { return getInstance(); }
+
 // -debug, -debugi, -debugw
 int CheckForDebugArgs(LPCWSTR asCmdLine)
 {
@@ -3168,6 +3218,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     CCliHelper cliHelper;
     cliHelper.Open();
+
+    //CTestAppEx::getInstance()->getRef().Print();
+    CTestAppEx m_testObj;
+    m_testObj.Print();
 
 	DEBUGSTRSTARTUP(L"WinMain entered");
 	int iMainRc = 0;
