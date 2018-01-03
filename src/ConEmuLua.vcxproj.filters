@@ -10,6 +10,21 @@
     <Filter Include="Sources">
       <UniqueIdentifier>{89565304-F535-D29F-FE4D-5D766AAC3801}</UniqueIdentifier>
     </Filter>
+    <Filter Include="modules">
+      <UniqueIdentifier>{cf402046-9881-4979-bfc6-5568efd1aeed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modules\lua">
+      <UniqueIdentifier>{99a6d72a-9598-4878-9b08-a4c9a327a916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modules\log4z">
+      <UniqueIdentifier>{0b81a859-89a7-46d4-a0d3-263ec8dfd422}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modules\fflua">
+      <UniqueIdentifier>{91de7498-2525-4123-9c0b-65aa6e5ee938}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modules\Cliplus">
+      <UniqueIdentifier>{b27806b0-3d1b-41ca-a45f-5799a89d26b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConEmuLua\ConEmuLua.h">
@@ -18,8 +33,128 @@
     <ClInclude Include="ConEmuLua\resource.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="modules\Cliplus\Cliplus.h">
+      <Filter>modules\Cliplus</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\log4z\log4z.h">
+      <Filter>modules\log4z</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\fflua\lua\fflua.h">
+      <Filter>modules\fflua</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\fflua\lua\fflua_register.h">
+      <Filter>modules\fflua</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\fflua\lua\fflua_type.h">
+      <Filter>modules\fflua</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="modules\Cliplus\Cliplus.cpp">
+      <Filter>modules\Cliplus</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\log4z\log4z.cpp">
+      <Filter>modules\log4z</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\lapi.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\lauxlib.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\lbaselib.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\lbitlib.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\lcode.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\lcorolib.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\lctype.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\ldblib.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\ldebug.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\ldo.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\ldump.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\lfunc.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\lgc.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\linit.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\liolib.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\llex.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\lmathlib.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\lmem.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\loadlib.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\lobject.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\lopcodes.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\loslib.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\lparser.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\lstate.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\lstring.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\lstrlib.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\ltable.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\ltablib.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\ltm.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\lundump.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\lutf8lib.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\lvm.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\lua-5.3.4\src\lzio.c">
+      <Filter>modules\lua</Filter>
+    </ClCompile>
     <ClCompile Include="ConEmuLua\ConEmuLua.cpp">
       <Filter>Sources</Filter>
     </ClCompile>

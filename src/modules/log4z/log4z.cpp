@@ -1337,8 +1337,7 @@ LogData * LogerManager::makeLogData(LoggerId id, int level, bool isPrint, const 
         }
         if (pLog == NULL)
         {
-            //pLog = new(malloc(sizeof(LogData) + LOG4Z_LOG_BUF_SIZE-1))LogData();
-            pLog = (LogData*)malloc(sizeof(LogData) + LOG4Z_LOG_BUF_SIZE-1);
+            pLog = (LogData*)malloc(sizeof(LogData) + LOG4Z_LOG_BUF_SIZE - 1);
         }
     }
     //append precise time to log
@@ -1494,7 +1493,8 @@ void LogerManager::freeLogData(LogData * log)
     else
     {
         log->~LogData();
-        free( log);
+        free(log);
+        log = NULL;
     }
 }
 
@@ -1691,7 +1691,10 @@ bool LogerManager::stop()
         wait();
         while (!_freeLogDatas.empty())
         {
-            delete _freeLogDatas.back();
+            LogData * _p = _freeLogDatas.back();
+            _p->~LogData();
+            free(_p);
+            _p = NULL;
             _freeLogDatas.pop_back();
         }
         return true;

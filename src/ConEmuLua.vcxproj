@@ -147,6 +147,7 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <ExceptionHandling>false</ExceptionHandling>
+      <AdditionalIncludeDirectories>modules;modules\lua-5.3.4\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WIN32;NDEBUG;HIDE_TODO;_HAS_EXCEPTIONS=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -175,6 +176,7 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <ExceptionHandling>false</ExceptionHandling>
+      <AdditionalIncludeDirectories>modules;modules\lua-5.3.4\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN64;_WIN64;NDEBUG;HIDE_TODO;_HAS_EXCEPTIONS=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -198,6 +200,7 @@
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <ExceptionHandling>false</ExceptionHandling>
+      <AdditionalIncludeDirectories>modules;modules\lua-5.3.4\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WIN32;_DEBUG;HIDE_TODO;MSGLOGGER;_HAS_EXCEPTIONS=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -220,6 +223,7 @@
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <ExceptionHandling>false</ExceptionHandling>
+      <AdditionalIncludeDirectories>modules;modules\lua-5.3.4\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN64;_WIN64;_DEBUG;HIDE_TODO;MSGLOGGER;_HAS_EXCEPTIONS=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -241,6 +245,7 @@
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <ExceptionHandling>false</ExceptionHandling>
+      <AdditionalIncludeDirectories>modules;modules\lua-5.3.4\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WIN32;_DEBUG;HIDE_TODO;MSGLOGGER;_HAS_EXCEPTIONS=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -263,6 +268,7 @@
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <ExceptionHandling>false</ExceptionHandling>
+      <AdditionalIncludeDirectories>modules;modules\lua-5.3.4\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN64;_WIN64;_DEBUG;HIDE_TODO;MSGLOGGER;_HAS_EXCEPTIONS=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -278,9 +284,49 @@
   <ItemGroup>
     <ClInclude Include="ConEmuLua\ConEmuLua.h" />
     <ClInclude Include="ConEmuLua\resource.h" />
+    <ClInclude Include="modules\Cliplus\Cliplus.h" />
+    <ClInclude Include="modules\fflua\lua\fflua.h" />
+    <ClInclude Include="modules\fflua\lua\fflua_register.h" />
+    <ClInclude Include="modules\fflua\lua\fflua_type.h" />
+    <ClInclude Include="modules\log4z\log4z.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConEmuLua\ConEmuLua.cpp" />
+    <ClCompile Include="modules\Cliplus\Cliplus.cpp" />
+    <ClCompile Include="modules\log4z\log4z.cpp" />
+    <ClCompile Include="modules\lua-5.3.4\src\lapi.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\lauxlib.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\lbaselib.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\lbitlib.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\lcode.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\lcorolib.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\lctype.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\ldblib.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\ldebug.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\ldo.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\ldump.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\lfunc.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\lgc.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\linit.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\liolib.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\llex.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\lmathlib.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\lmem.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\loadlib.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\lobject.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\lopcodes.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\loslib.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\lparser.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\lstate.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\lstring.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\lstrlib.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\ltable.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\ltablib.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\ltm.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\lundump.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\lutf8lib.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\lvm.c" />
+    <ClCompile Include="modules\lua-5.3.4\src\lzio.c" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ConEmuLua\ConEmuLua.rc" />

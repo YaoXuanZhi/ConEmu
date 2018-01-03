@@ -3058,39 +3058,6 @@ int ProcessCmdArg(LPCWSTR cmdNew, bool isScript, bool isBare, CEStr& szReady, bo
 	return 0;
 }
 
-typedef std::basic_string<wchar_t, std::char_traits<wchar_t>, ConEmuAllocator<wchar_t>> wstring_t;
-
-class CTestApp {
-protected:
-    //wstring_t m_szId;
-    CEStr m_szId;
-
-public:
-    CTestApp();
-    virtual ~CTestApp();
-    virtual void Print();
-};
-
-class CTestAppEx:public CTestApp {
-private:
-    bool isCan;
-
-public:
-    CTestAppEx() { isCan = true; }
-    virtual ~CTestAppEx() {}
-};
-
-CTestApp::CTestApp() {
-    m_szId.Set(L"heelalfjasl");
-}
-CTestApp::~CTestApp() {
-}
-
-void CTestApp::Print()
-{
-    fwprintf(stdout, L"%s\n", &m_szId[0]);
-}
-
 // -debug, -debugi, -debugw
 int CheckForDebugArgs(LPCWSTR asCmdLine)
 {
@@ -3175,7 +3142,7 @@ protected:
     {
         if (strncmp(szCmd,"logstart", 8) == 0)
         {
-            ILog4zManager::getRef().stop();
+            ILog4zManager::getRef().start();
         }
         else if (strncmp(szCmd,"logend", 6) == 0)
         {
@@ -3221,9 +3188,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	gnOsVer = ((gOSVer.dwMajorVersion & 0xFF) << 8) | (gOSVer.dwMinorVersion & 0xFF);
     // 初始化堆，在此之前的堆分配都会导致程序错误
 	HeapInitialize();
-
-    CTestAppEx m_obj;
-    m_obj.Print();
 
 	ILog4zManager::getRef().setLoggerName(LOG4Z_MAIN_LOGGER_ID, "ConEmuApp");
 	ILog4zManager::getRef().setLoggerPath(LOG4Z_MAIN_LOGGER_ID, "./");
@@ -3936,6 +3900,5 @@ wrap:
 	{
 		TerminateProcess(GetCurrentProcess(), iMainRc);
 	}
-    HeapDeinitialize();
 	return iMainRc;
 }
