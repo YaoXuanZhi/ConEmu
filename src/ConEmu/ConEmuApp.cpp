@@ -3173,7 +3173,17 @@ public:
 protected:
 	void AcceptCommand(char *szCmd)
     {
-        LOGW("Invaild Input << " << szCmd);
+        if (strncmp(szCmd,"logstart", 8) == 0)
+        {
+            ILog4zManager::getRef().stop();
+        }
+        else if (strncmp(szCmd,"logend", 6) == 0)
+        {
+            ILog4zManager::getRef().stop();
+        }
+        else {
+            LOGW("Invaild Input << " << szCmd);
+        }
     }
 	void ShowHelpTips()
 	{
@@ -3894,7 +3904,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 done:
     cliHelper.Close();
-    ILog4zManager::getRef().stop();
 	DEBUGSTRSTARTUP(L"Terminating");
 	ShutdownGuiStep(L"MessageLoop terminated");
 //------------------------------------------------------------------------
@@ -3927,5 +3936,6 @@ wrap:
 	{
 		TerminateProcess(GetCurrentProcess(), iMainRc);
 	}
+    HeapDeinitialize();
 	return iMainRc;
 }

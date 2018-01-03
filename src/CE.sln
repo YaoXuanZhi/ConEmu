@@ -34,6 +34,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Far.ConEmuTh.pe", "Far.ConE
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Far.ExtendedConsole", "Far.ExtendedConsole.vcxproj", "{3044E8BC-9CA5-C5CA-2513-0C7D9173FC89}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConEmuLua", "ConEmuLua.vcxproj", "{36C0966B-551B-43F2-AE33-EB365093A464}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -212,6 +214,18 @@ Global
 		{3044E8BC-9CA5-C5CA-2513-0C7D9173FC89}.Remote|Win32.Build.0 = Remote|Win32
 		{3044E8BC-9CA5-C5CA-2513-0C7D9173FC89}.Remote|x64.ActiveCfg = Remote|x64
 		{3044E8BC-9CA5-C5CA-2513-0C7D9173FC89}.Remote|x64.Build.0 = Remote|x64
+		{36C0966B-551B-43F2-AE33-EB365093A464}.Debug|Win32.ActiveCfg = Debug|Win32
+		{36C0966B-551B-43F2-AE33-EB365093A464}.Debug|Win32.Build.0 = Debug|Win32
+		{36C0966B-551B-43F2-AE33-EB365093A464}.Debug|x64.ActiveCfg = Debug|x64
+		{36C0966B-551B-43F2-AE33-EB365093A464}.Debug|x64.Build.0 = Debug|x64
+		{36C0966B-551B-43F2-AE33-EB365093A464}.Release|Win32.ActiveCfg = Release|Win32
+		{36C0966B-551B-43F2-AE33-EB365093A464}.Release|Win32.Build.0 = Release|Win32
+		{36C0966B-551B-43F2-AE33-EB365093A464}.Release|x64.ActiveCfg = Release|x64
+		{36C0966B-551B-43F2-AE33-EB365093A464}.Release|x64.Build.0 = Release|x64
+		{36C0966B-551B-43F2-AE33-EB365093A464}.Remote|Win32.ActiveCfg = Remote|Win32
+		{36C0966B-551B-43F2-AE33-EB365093A464}.Remote|Win32.Build.0 = Remote|Win32
+		{36C0966B-551B-43F2-AE33-EB365093A464}.Remote|x64.ActiveCfg = Remote|x64
+		{36C0966B-551B-43F2-AE33-EB365093A464}.Remote|x64.Build.0 = Remote|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

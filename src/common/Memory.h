@@ -41,7 +41,9 @@ extern HANDLE ghHeap;
 
 // Heap allocation routines
 
+// 初始化堆分配
 bool HeapInitialize();
+// 取消堆分配
 void HeapDeinitialize();
 
 void * __cdecl operator new(size_t size);
