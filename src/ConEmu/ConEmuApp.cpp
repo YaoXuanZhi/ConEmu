@@ -3138,20 +3138,20 @@ public:
         SetSubSysType(EM_WINDOWS);
     }
 protected:
-    //void AcceptCommand(char *szCmd)
+	//void AcceptCommand(char *szCmd)
  //   {
  //       LOGW("Invaild Input << " << szCmd);
  //   }
 
-    //void ShowHelpTips()
-    //{
-    //	LOGI("ConEmu /?...");
-    //}
+	//void ShowHelpTips()
+	//{
+	//	LOGI("ConEmu /?...");
+	//}
 
-    //void ShowQuitTip()
-    //{
-    //	LOGI("按下任意键退出...");
-    //}
+	//void ShowQuitTip()
+	//{
+	//	LOGI("按下任意键退出...");
+	//}
 };
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -3887,5 +3887,6 @@ wrap:
 	{
 		TerminateProcess(GetCurrentProcess(), iMainRc);
 	}
+    cliHelper.Close();
 	return iMainRc;
 }

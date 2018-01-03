@@ -62,6 +62,9 @@ FEFF    ZERO WIDTH NO-BREAK SPACE
 //#define SHOWDEBUGSTEPS
 #endif
 
+// 输出控制台文本
+//#define DEBUGOUTPUTTEXT
+
 #include "Header.h"
 #include <Tlhelp32.h>
 
@@ -2798,6 +2801,11 @@ void CVirtualConsole::UpdateText()
 		}
 
 		// May return false on memory allocation errors only
+#ifdef DEBUGOUTPUTTEXT
+        OutputDebugStringA("即将绘制文本：");
+        OutputDebugStringW(pszDrawLine);
+        OutputDebugStringA("\n");
+#endif
 		if (!lp.ParseLine(isForce, m_Sizes.TextWidth, m_Sizes.nFontWidth, row, pszDrawLine, ConAttrLine, ConCharLine2, ConAttrLine2))
 		{
 			// Fill with background?

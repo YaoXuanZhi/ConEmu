@@ -175,6 +175,7 @@ BOOL LoadScreen(HDC hScreen, int anX, int anY, int anWidth, int anHeight, LPBYTE
 
 
 
+// 保存屏幕截图
 BOOL DumpImage(HDC hScreen, HBITMAP hBitmap, int anX, int anY, int anWidth, int anHeight, LPCWSTR pszFile, bool PreserveTransparency/*=true*/)
 {
 	BOOL lbRc = FALSE;
