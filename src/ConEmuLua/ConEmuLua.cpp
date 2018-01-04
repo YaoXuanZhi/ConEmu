@@ -21,6 +21,7 @@
 #include "../ConEmuHk/ConEmuHooks.h"
 #include "ConEmuLua.h"
 #include "resource.h"
+#include <Shlwapi.h>
 
 using namespace zsummer::log4z;
 
@@ -98,14 +99,21 @@ static void lua_reg(lua_State* ls)
 
 class CCliApp:public CCliplus{
 public:
-	void LoadScript()
-	{
-		m_fflua.setModFuncFlag(true);
-		//! 注册C++ 对象到lua中
-		m_fflua.reg(lua_reg);
-		//! 载入lua文件
-		m_fflua.add_package_path("./ConEmuLua/");
-		m_fflua.load_file("./ConEmuLua/test.lua");
+    void LoadScript()
+    {
+        m_fflua.setModFuncFlag(true);
+        //! 注册C++ 对象到lua中
+        m_fflua.reg(lua_reg);
+        //! 载入lua文件
+        m_fflua.add_package_path("./ConEmuLua/");
+        if (PathFileExistsA("test.lua"))
+        {
+            m_fflua.load_file("test.lua");
+        }
+        else if (PathFileExistsA("./ConEmuLua/test.lua"))
+        {
+            m_fflua.load_file("./ConEmuLua/test.lua");
+        }
 	}
 
 	void TestScript()
@@ -149,6 +157,7 @@ public:
 		//! 调用lua函数，c++ 对象作为返回值, 自动转换为基类
 		base_t* base_ptr = m_fflua.call<base_t*>("test_ret_base_object", foo_ptr);
 		_ASSERTE(base_ptr == foo_ptr);
+        delete foo_ptr;
 	}
 private:
 	ff::fflua_t m_fflua;
@@ -198,14 +207,14 @@ int main(int argc, char* argv[])
 	{
 		m_AppObj.LoadScript();
 		m_AppObj.Open();
-		m_AppObj.TestScript();
+        m_AppObj.TestScript();
+        ILog4zManager::getRef().stop();
 	}
 	catch (exception& e)
 	{
 		LOGF("exception:"<<e.what());
 	}
 
-	ILog4zManager::getRef().stop();
     //HeapDeinitialize();
 	return 0;
 }
