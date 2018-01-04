@@ -97,7 +97,7 @@ static void lua_reg(lua_State* ls)
 
 }
 
-class CCliApp:public CCliplus{
+class CCliHelper:public CCliplus{
 public:
     void LoadScript()
     {
@@ -202,7 +202,7 @@ int main(int argc, char* argv[])
 	ILog4zManager::getRef().setLoggerOutFile(LOG4Z_MAIN_LOGGER_ID, true);
 	ILog4zManager::getRef().start();
 
-	CCliApp m_AppObj;
+	CCliHelper m_AppObj;
 	try 
 	{
 		m_AppObj.LoadScript();

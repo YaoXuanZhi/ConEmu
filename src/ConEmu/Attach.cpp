@@ -150,6 +150,7 @@ void CAttachDlg::Close()
 
 bool CAttachDlg::OnStartAttach()
 {
+    LOGI("OnStartAttach");
 	bool lbRc = false;
 	// Тут нужно получить инфу из списка и дернуть собственно аттач
 	wchar_t szItem[128] = {};
@@ -177,6 +178,7 @@ bool CAttachDlg::OnStartAttach()
 		AttachParm L = {NULL, 0, WIN3264TEST(32,64), apt_Unknown, bAlternativeMode, bLeaveOpened};
 
 		ListView_GetItemText(mh_List, iCur, alc_PID, szItem, countof(szItem)-1);
+        LOGD(CharsetConvert::UTF16ToMBCS(szItem));
 		L.nPID = wcstoul(szItem, &psz, 10);
 		if (L.nPID)
 		{

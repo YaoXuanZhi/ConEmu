@@ -64,6 +64,7 @@ void CConEmuPipe::Close()
 
 BOOL CConEmuPipe::Init(LPCTSTR asOp, BOOL abSilent)
 {
+    LOGA(CharsetConvert::UTF16ToMBCS(asOp));
 	wchar_t szErr[MAX_PATH*2];
 	mh_Pipe = ExecuteOpenPipe(ms_PipeName, szErr, gpConEmu->GetDefaultTitle());
 

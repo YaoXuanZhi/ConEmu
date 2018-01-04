@@ -25,6 +25,9 @@
     <Filter Include="modules\Cliplus">
       <UniqueIdentifier>{b6c8412c-6c5f-4d3e-b76f-b2ccd3200cd4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="modules\CharsetConvert">
+      <UniqueIdentifier>{ff1b5674-d322-445b-b4a1-809686c86627}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConEmu\About.h">
@@ -744,6 +747,9 @@
     <ClInclude Include="modules\Cliplus\Cliplus.h">
       <Filter>modules\Cliplus</Filter>
     </ClInclude>
+    <ClInclude Include="modules\CharsetConvert\CharsetConvert.h">
+      <Filter>modules\CharsetConvert</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConEmu\AboutDlg.cpp">
@@ -1126,6 +1132,9 @@
     </ClCompile>
     <ClCompile Include="modules\Cliplus\Cliplus.cpp">
       <Filter>modules\Cliplus</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\CharsetConvert\CharsetConvert.cpp">
+      <Filter>modules\CharsetConvert</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

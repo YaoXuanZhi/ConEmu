@@ -53,6 +53,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "../common/CEStr.h"
 #include "../modules/log4z/log4z.h"
 #include "../modules/Cliplus/Cliplus.h"
+#include "../modules/CharsetConvert/CharsetConvert.h"
 
 using namespace zsummer::log4z;
 
