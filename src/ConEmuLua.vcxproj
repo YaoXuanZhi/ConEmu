@@ -206,7 +206,7 @@
       <PreprocessorDefinitions>WIN32;_WIN32;_DEBUG;HIDE_TODO;MSGLOGGER;_HAS_EXCEPTIONS=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ImportLibrary>_VCBUILD\Debug_Far.ConEmuLua_Win32\ConEmuLua.lib</ImportLibrary>
       <GenerateMapFile>true</GenerateMapFile>
@@ -289,6 +289,9 @@
     <ClInclude Include="modules\fflua\lua\fflua_register.h" />
     <ClInclude Include="modules\fflua\lua\fflua_type.h" />
     <ClInclude Include="modules\log4z\log4z.h" />
+    <ClInclude Include="modules\spec\CAutoRegisterFactory.h" />
+    <ClInclude Include="modules\spec\CEventFactory.h" />
+    <ClInclude Include="modules\spec\CSimWndFramework.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConEmuLua\ConEmuLua.cpp" />
@@ -327,6 +330,8 @@
     <ClCompile Include="modules\lua-5.3.4\src\lutf8lib.c" />
     <ClCompile Include="modules\lua-5.3.4\src\lvm.c" />
     <ClCompile Include="modules\lua-5.3.4\src\lzio.c" />
+    <ClCompile Include="modules\spec\CEventFactory.cpp" />
+    <ClCompile Include="modules\spec\CSimWndFramework.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ConEmuLua\ConEmuLua.rc" />

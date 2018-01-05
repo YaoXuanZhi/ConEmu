@@ -5,6 +5,8 @@
 #include "fflua/lua/fflua.h"
 #include "Cliplus/Cliplus.h"
 #include "log4z/log4z.h"
+#include "spec/CSimWndFramework.h"
+#include "spec/CEventFactory.h"
 
 #include "../common/defines.h"
 #include "../common/pluginW1900.hpp"
@@ -17,6 +19,7 @@
 #include "../common/UnicodeChars.h"
 #include "../common/WThreads.h"
 #include "../ConEmu/version.h"
+#include "../ConEmu/ConEmuPipe.h"
 #include "../ConEmuCD/ExitCodes.h"
 #include "../ConEmuHk/ConEmuHooks.h"
 #include "ConEmuLua.h"
@@ -25,6 +28,7 @@
 
 using namespace zsummer::log4z;
 
+#define USEMODALDLG
 class base_t
 {
 public:
@@ -171,6 +175,25 @@ protected:
 		}
 		else if (strncmp(szCmd, "ldb", 3) == 0) {
 			m_fflua.call<void>("pause","open ldb debugger", 1);
+		}
+		else if (strncmp(szCmd, "console", 7) == 0) {
+            LOGW("执行Console命令");
+		}
+		else if (strncmp(szCmd, "pipe", 4) == 0) {
+            LOGI("执行Pipe");
+
+            // 开启一个匿名管道通讯
+            //int nPID = 0;
+            //CConEmuPipe pipe(nPID, 1000);
+
+            //if (pipe.Init(_T("CVirtualConsole::OnPanelViewSettingsChanged"), TRUE))
+            //{
+            //    CESERVER_REQ_GUICHANGED lWindows = { sizeof(CESERVER_REQ_GUICHANGED) };
+            //    lWindows.nGuiPID = GetCurrentProcessId();
+            //    lWindows.hLeftView = NULL;
+            //    lWindows.hRightView = NULL;
+            //    pipe.Execute(CMD_GUICHANGED, &lWindows, sizeof(lWindows));
+            //}
 		}else
 		{
 			LOGW("无效输入： << "<< szCmd);
@@ -188,7 +211,7 @@ protected:
 	}
 };
 
-int main(int argc, char* argv[])
+int mainplus(int argc, char* argv[])
 {
     HeapInitialize();
 
@@ -217,4 +240,66 @@ int main(int argc, char* argv[])
 
     //HeapDeinitialize();
 	return 0;
+}
+
+class CAppWnd :public CSimModalDialog {
+public:
+    CAppWnd() {}
+    virtual ~CAppWnd() {}
+protected:
+    LRESULT OnRButtonDBClick(WPARAM, LPARAM) {
+        EndDialog(IDCLOSE);
+        return FALSE;
+    }
+
+    LRESULT OnPaint(WPARAM, LPARAM) {
+        PAINTSTRUCT ps;
+        HDC hDC = ::BeginPaint(*this, &ps);
+
+        ::EndPaint(*this, &ps);
+        return TRUE;
+    }
+
+	BEGIN_MSG_MAP_SIMWNDPROC(CAppWnd)
+		MSG_MAP_SIMWNDPROC(WM_RBUTTONDBLCLK, OnRButtonDBClick)
+		MSG_MAP_SIMWNDPROC(WM_PAINT, OnPaint)
+	END_MSG_MAP_SIMWNDPROC(CSimModalDialog)
+};
+
+int APIENTRY _tWinMain(HINSTANCE hInstance,
+	HINSTANCE hPrevInstance,
+	LPTSTR    lpCmdLine,
+	int       nCmdShow)
+{
+    HeapInitialize();
+
+	ILog4zManager::getRef().setLoggerName(LOG4Z_MAIN_LOGGER_ID, "ConEmuLua");
+	ILog4zManager::getRef().setLoggerPath(LOG4Z_MAIN_LOGGER_ID, "./ConEmuLua");
+	//ILog4zManager::getRef().enableLogger(LOG4Z_MAIN_LOGGER_ID, false);
+	ILog4zManager::getRef().setLoggerDisplay(LOG4Z_MAIN_LOGGER_ID, true);
+	ILog4zManager::getRef().setLoggerLevel(LOG4Z_MAIN_LOGGER_ID, LOG_LEVEL_TRACE);
+	ILog4zManager::getRef().setLoggerFileLine(LOG4Z_MAIN_LOGGER_ID, false);
+	ILog4zManager::getRef().setLoggerThreadId(LOG4Z_MAIN_LOGGER_ID, false);
+	ILog4zManager::getRef().setLoggerOutFile(LOG4Z_MAIN_LOGGER_ID, true);
+
+	UNREFERENCED_PARAMETER(hPrevInstance);
+	UNREFERENCED_PARAMETER(lpCmdLine);
+	UNREFERENCED_PARAMETER(nCmdShow);
+
+	//非模态对话框
+	CAppWnd myWnd;
+    LOGT("CreateWindows");
+
+#ifndef USEMODALDLG
+	myWnd.CreateEx(WS_EX_ACCEPTFILES | WS_EX_APPWINDOW, _T("MyClass"), _T("SimDUIDemo"),
+		WS_BORDER | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_DLGFRAME | WS_MAXIMIZEBOX | WS_MINIMIZEBOX | WS_SYSMENU | WS_THICKFRAME | WS_VISIBLE,
+		200, 200, 400, 300, GetActiveWindow(), NULL, hInstance
+		);
+	myWnd.ModifyStyle(WS_CAPTION, NULL);
+	::ShowWindow(myWnd, SW_SHOW);
+	return myWnd.MessageLoop();
+#else
+	int nRet =  myWnd.DoModal(_T("MyClass"), _T("SimDUIDemo"), 200, 200, 400, 300, GetActiveWindow(), hInstance);
+    return nRet;
+#endif
 }

@@ -25,6 +25,9 @@
     <Filter Include="modules\Cliplus">
       <UniqueIdentifier>{b27806b0-3d1b-41ca-a45f-5799a89d26b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="modules\spec">
+      <UniqueIdentifier>{461a81d9-bc44-4240-b017-dd4826d33c9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConEmuLua\ConEmuLua.h">
@@ -47,6 +50,15 @@
     </ClInclude>
     <ClInclude Include="modules\fflua\lua\fflua_type.h">
       <Filter>modules\fflua</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\spec\CAutoRegisterFactory.h">
+      <Filter>modules\spec</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\spec\CEventFactory.h">
+      <Filter>modules\spec</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\spec\CSimWndFramework.h">
+      <Filter>modules\spec</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +169,12 @@
     </ClCompile>
     <ClCompile Include="ConEmuLua\ConEmuLua.cpp">
       <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\spec\CEventFactory.cpp">
+      <Filter>modules\spec</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\spec\CSimWndFramework.cpp">
+      <Filter>modules\spec</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
