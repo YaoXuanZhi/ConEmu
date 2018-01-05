@@ -1,42 +1,7 @@
-﻿
-/*
-Copyright (c) 2009-2017 Maximus5
-All rights reserved.
+﻿#include "CPipeWrapper.h"
+#include <MMSystem.h>
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions
-are met:
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in the
-   documentation and/or other materials provided with the distribution.
-3. The name of the authors may not be used to endorse or promote products
-   derived from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS OR
-IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
-OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
-NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
-THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-
-#define HIDE_USE_EXCEPTION_INFO
-#include "header.h"
-#include "../common/ConEmuCheck.h"
-#include "../common/ConEmuPipeMode.h"
-#include "ConEmuPipe.h"
-#include "ConEmu.h"
-#include "SetPgDebug.h"
-
-WARNING("!!! Обязательно нужно сделать возможность отваливаться по таймауту!");
-
-CConEmuPipe::CConEmuPipe(DWORD anFarPID, DWORD anTimeout/*=-1*/)
+CPipeWrapper::CPipeWrapper(DWORD anFarPID, DWORD anTimeout/*=-1*/)
 {
 	mn_FarPID = anFarPID;
 	mh_Pipe = NULL;
@@ -48,12 +13,12 @@ CConEmuPipe::CConEmuPipe(DWORD anFarPID, DWORD anTimeout/*=-1*/)
 	mdw_Timeout = anTimeout;
 }
 
-CConEmuPipe::~CConEmuPipe()
+CPipeWrapper::~CPipeWrapper()
 {
 	Close();
 }
 
-void CConEmuPipe::Close()
+void CPipeWrapper::Close()
 {
 	SafeCloseHandle(mh_Pipe);
 	SafeFree(pIn);
@@ -62,7 +27,7 @@ void CConEmuPipe::Close()
 }
 
 
-BOOL CConEmuPipe::Init(LPCTSTR asOp, BOOL abSilent)
+BOOL CPipeWrapper::Init(LPCTSTR asOp, BOOL abSilent)
 {
     LOGA(CharsetConvert::UTF16ToMBCS(asOp));
 	wchar_t szErr[MAX_PATH*2];
@@ -71,7 +36,8 @@ BOOL CConEmuPipe::Init(LPCTSTR asOp, BOOL abSilent)
 
 	if (!mh_Pipe || mh_Pipe == INVALID_HANDLE_VALUE)
 	{
-		MBoxA(szErr);
+		//MBoxA(szErr);
+        OutputDebugString(szErr);
 		return FALSE;
 	}
 
@@ -79,7 +45,7 @@ BOOL CConEmuPipe::Init(LPCTSTR asOp, BOOL abSilent)
 }
 
 // Не интересуется результатом команды!
-BOOL CConEmuPipe::Execute(int nCmd, LPCVOID apData, UINT anDataSize)
+BOOL CPipeWrapper::Execute(int nCmd, LPCVOID apData, UINT anDataSize)
 {
 	WARNING("Если указан mdw_Timeout - создать нить и выполнять команду в ней. Ожидать нить не более и прибить ее, если пришел Timeout");
 	MCHKHEAP
@@ -88,7 +54,8 @@ BOOL CConEmuPipe::Execute(int nCmd, LPCVOID apData, UINT anDataSize)
 	{
 		TCHAR szError[128];
 		swprintf_c(szError, _T("Invalid command id (%i)!\nPID=%u, TID=%u"), nCmd, GetCurrentProcessId(), GetCurrentThreadId());
-		MBoxA(szError);
+		//MBoxA(szError);
+        OutputDebugString(szError);
 		return FALSE;
 	}
 
@@ -104,7 +71,8 @@ BOOL CConEmuPipe::Execute(int nCmd, LPCVOID apData, UINT anDataSize)
 		_ASSERTE(pIn!=NULL);
 		TCHAR szError[128];
 		swprintf_c(szError, _T("Pipe: Can't allocate memory (%i) bytes, Cmd = %i!"), nAllSize, nCmd);
-		MBoxA(szError);
+		//MBoxA(szError);
+        OutputDebugString(szError);
 		Close();
 		return FALSE;
 	}
@@ -130,7 +98,7 @@ BOOL CConEmuPipe::Execute(int nCmd, LPCVOID apData, UINT anDataSize)
 					NULL);                  // not overlapped
 	dwErr = GetLastError();
 
-	CSetPgDebug::debugLogCommand(pIn, FALSE, dwTickStart, timeGetTime()-dwTickStart, ms_PipeName);
+	//CSetPgDebug::debugLogCommand(pIn, FALSE, dwTickStart, timeGetTime()-dwTickStart, ms_PipeName);
 
 	if (!fSuccess && dwErr == ERROR_BROKEN_PIPE)
 	{
@@ -144,7 +112,8 @@ BOOL CConEmuPipe::Execute(int nCmd, LPCVOID apData, UINT anDataSize)
 		DEBUGSTR(L" - FAILED!\n");
 		TCHAR szError[128];
 		swprintf_c(szError, _T("Pipe: TransactNamedPipe failed, Cmd = %i, ErrCode = 0x%08X!"), nCmd, dwErr);
-		MBoxA(szError);
+		//MBoxA(szError);
+        OutputDebugString(szError);
 		Close();
 		SafeFree(pIn);
 		return FALSE;
@@ -172,7 +141,8 @@ BOOL CConEmuPipe::Execute(int nCmd, LPCVOID apData, UINT anDataSize)
 
 	if (pOut->hdr.nVersion != CESERVER_REQ_VER)
 	{
-		gpConEmu->ReportOldCmdVersion(pOut->hdr.nCmd, pOut->hdr.nVersion, -1, pOut->hdr.nSrcPID, pOut->hdr.hModule, pOut->hdr.nBits);
+		//gpConEmu->ReportOldCmdVersion(pOut->hdr.nCmd, pOut->hdr.nVersion, -1, pOut->hdr.nSrcPID, pOut->hdr.hModule, pOut->hdr.nBits);
+        OutputDebugStringA("gpConEmu->ReportOldCmdVersion\n");
 		pOut = NULL;
 		Close();
 		SafeFree(pIn);
@@ -185,7 +155,8 @@ BOOL CConEmuPipe::Execute(int nCmd, LPCVOID apData, UINT anDataSize)
 	if (nAllSize==0)
 	{
 		DEBUGSTR(L" - FAILED!\n");
-		DisplayLastError(L"Empty data recieved from server", 0);
+		//DisplayLastError(L"Empty data recieved from server", 0);
+        OutputDebugStringA("Empty data recieved from server 0\n");
 		Close();
 		SafeFree(pIn);
 		return FALSE;
@@ -231,7 +202,7 @@ BOOL CConEmuPipe::Execute(int nCmd, LPCVOID apData, UINT anDataSize)
 	return TRUE;
 }
 
-LPBYTE CConEmuPipe::GetPtr(DWORD* pdwLeft/*=NULL*/)
+LPBYTE CPipeWrapper::GetPtr(DWORD* pdwLeft/*=NULL*/)
 {
 	if (pdwLeft)
 	{
@@ -244,7 +215,7 @@ LPBYTE CConEmuPipe::GetPtr(DWORD* pdwLeft/*=NULL*/)
 	return lpCursor;
 }
 
-BOOL CConEmuPipe::Read(LPVOID pData, DWORD nSize, DWORD* nRead)
+BOOL CPipeWrapper::Read(LPVOID pData, DWORD nSize, DWORD* nRead)
 {
 	MCHKHEAP
 

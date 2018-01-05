@@ -521,9 +521,9 @@
     <ClInclude Include="common\wcchars.h" />
     <ClInclude Include="common\wcwidth.h" />
     <ClInclude Include="common\xmllite.h" />
-    <ClInclude Include="modules\CharsetConvert\CharsetConvert.h" />
     <ClInclude Include="modules\Cliplus\Cliplus.h" />
     <ClInclude Include="modules\log4z\log4z.h" />
+    <ClInclude Include="modules\spec\CharsetConvert.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConEmu\AboutDlg.cpp" />
@@ -651,9 +651,9 @@
     <ClCompile Include="ConEmu\VConText.cpp" />
     <ClCompile Include="ConEmu\VirtualConsole.cpp" />
     <ClCompile Include="ConEmu\WinObjBase.cpp" />
-    <ClCompile Include="modules\CharsetConvert\CharsetConvert.cpp" />
     <ClCompile Include="modules\Cliplus\Cliplus.cpp" />
     <ClCompile Include="modules\log4z\log4z.cpp" />
+    <ClCompile Include="modules\spec\CharsetConvert.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ConEmu\ConEmu.ico" />

@@ -60,6 +60,12 @@
     <ClInclude Include="modules\spec\CSimWndFramework.h">
       <Filter>modules\spec</Filter>
     </ClInclude>
+    <ClInclude Include="ConEmuLua\CPipeWrapper.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\spec\CharsetConvert.h">
+      <Filter>modules\spec</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="modules\Cliplus\Cliplus.cpp">
@@ -174,6 +180,12 @@
       <Filter>modules\spec</Filter>
     </ClCompile>
     <ClCompile Include="modules\spec\CSimWndFramework.cpp">
+      <Filter>modules\spec</Filter>
+    </ClCompile>
+    <ClCompile Include="ConEmuLua\CPipeWrapper.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="modules\spec\CharsetConvert.cpp">
       <Filter>modules\spec</Filter>
     </ClCompile>
   </ItemGroup>

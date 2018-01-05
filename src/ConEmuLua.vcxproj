@@ -212,6 +212,7 @@
       <GenerateMapFile>true</GenerateMapFile>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
+      <AdditionalDependencies>comctl32.lib;shlwapi.lib;version.lib;gdiplus.lib;winmm.lib;netapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -283,6 +284,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ConEmuLua\ConEmuLua.h" />
+    <ClInclude Include="ConEmuLua\CPipeWrapper.h" />
     <ClInclude Include="ConEmuLua\resource.h" />
     <ClInclude Include="modules\Cliplus\Cliplus.h" />
     <ClInclude Include="modules\fflua\lua\fflua.h" />
@@ -291,10 +293,12 @@
     <ClInclude Include="modules\log4z\log4z.h" />
     <ClInclude Include="modules\spec\CAutoRegisterFactory.h" />
     <ClInclude Include="modules\spec\CEventFactory.h" />
+    <ClInclude Include="modules\spec\CharsetConvert.h" />
     <ClInclude Include="modules\spec\CSimWndFramework.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConEmuLua\ConEmuLua.cpp" />
+    <ClCompile Include="ConEmuLua\CPipeWrapper.cpp" />
     <ClCompile Include="modules\Cliplus\Cliplus.cpp" />
     <ClCompile Include="modules\log4z\log4z.cpp" />
     <ClCompile Include="modules\lua-5.3.4\src\lapi.c" />
@@ -331,6 +335,7 @@
     <ClCompile Include="modules\lua-5.3.4\src\lvm.c" />
     <ClCompile Include="modules\lua-5.3.4\src\lzio.c" />
     <ClCompile Include="modules\spec\CEventFactory.cpp" />
+    <ClCompile Include="modules\spec\CharsetConvert.cpp" />
     <ClCompile Include="modules\spec\CSimWndFramework.cpp" />
   </ItemGroup>
   <ItemGroup>

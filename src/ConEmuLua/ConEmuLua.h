@@ -1,32 +1,31 @@
-﻿
-#pragma once
+﻿#ifndef __CONEMULUA_H
+#define __CONEMULUA_H
 
-#ifdef DEFINE_CONSOLE_EXPORTS
-	// для ConEmuDW\Test\Test.cpp
+#include "fflua/lua/fflua.h"
+#include "Cliplus/Cliplus.h"
+#include "log4z/log4z.h"
+#include "spec/CSimWndFramework.h"
+#include "spec/CEventFactory.h"
+#include "spec/CharsetConvert.h"
 
-	typedef int (WINAPI* GetColorDialog_t)(FarColor* Color, BOOL Centered, BOOL AddTransparent);
-	typedef BOOL (WINAPI* GetTextAttributes_t)(FarColor* Attributes);
-	typedef BOOL (WINAPI* SetTextAttributes_t)(const FarColor* Attributes);
-	typedef BOOL (WINAPI* ClearExtraRegions_t)(const FarColor* Attributes, int Mode);
-	typedef BOOL (WINAPI* ReadOutput_t)(FAR_CHAR_INFO* Buffer, COORD BufferSize, COORD BufferCoord, SMALL_RECT* ReadRegion);
-	typedef BOOL (WINAPI* WriteOutput_t)(const FAR_CHAR_INFO* Buffer, COORD BufferSize, COORD BufferCoord, SMALL_RECT* WriteRegion);
-	typedef void (WINAPI* Commit_t)();
+#include "../common/defines.h"
+#include "../common/pluginW1900.hpp"
+#include "../common/ConsoleAnnotation.h"
+#include "../common/ConsoleRead.h"
+#include "../common/ConEmuColors3.h"
+#include "../common/Common.h"
+#include "../common/ConEmuCheck.h"
+#include "../common/HkFunc.h"
+#include "../common/UnicodeChars.h"
+#include "../common/WThreads.h"
+#include "../ConEmu/version.h"
+#include "../ConEmu/ConEmuPipe.h"
+#include "../ConEmuCD/ExitCodes.h"
+#include "../ConEmuHk/ConEmuHooks.h"
+#include "ConEmuLua.h"
+#include "resource.h"
+#include <Shlwapi.h>
 
-#else
-
-#if defined(__GNUC__)
-extern "C" {
-#endif
-	BOOL WINAPI GetTextAttributes(FarColor* Attributes);
-	BOOL WINAPI SetTextAttributes(const FarColor* Attributes);
-	BOOL WINAPI ClearExtraRegions(const FarColor* Color, int Mode);
-	BOOL WINAPI ClearExtraRegionsOld(const FarColor* Color);
-	BOOL WINAPI ReadOutput(FAR_CHAR_INFO* Buffer, COORD BufferSize, COORD BufferCoord, SMALL_RECT* ReadRegion);
-	BOOL WINAPI WriteOutput(const FAR_CHAR_INFO* Buffer, COORD BufferSize, COORD BufferCoord, SMALL_RECT* WriteRegion);
-	BOOL WINAPI Commit();
-	int  WINAPI GetColorDialog(FarColor* Color, BOOL Centered, BOOL AddTransparent);
-#if defined(__GNUC__)
-};
-#endif
+using namespace zsummer::log4z;
 
 #endif

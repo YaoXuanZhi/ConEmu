@@ -1,34 +1,7 @@
-//#define SHOWDEBUGSTR
-//
-//#define MASSERT_HEADER_DEFINED
-
-#include "fflua/lua/fflua.h"
-#include "Cliplus/Cliplus.h"
-#include "log4z/log4z.h"
-#include "spec/CSimWndFramework.h"
-#include "spec/CEventFactory.h"
-
-#include "../common/defines.h"
-#include "../common/pluginW1900.hpp"
-#include "../common/ConsoleAnnotation.h"
-#include "../common/ConsoleRead.h"
-#include "../common/ConEmuColors3.h"
-#include "../common/Common.h"
-#include "../common/ConEmuCheck.h"
-#include "../common/HkFunc.h"
-#include "../common/UnicodeChars.h"
-#include "../common/WThreads.h"
-#include "../ConEmu/version.h"
-#include "../ConEmu/ConEmuPipe.h"
-#include "../ConEmuCD/ExitCodes.h"
-#include "../ConEmuHk/ConEmuHooks.h"
 #include "ConEmuLua.h"
-#include "resource.h"
-#include <Shlwapi.h>
-
-using namespace zsummer::log4z;
 
 #define USEMODALDLG
+
 class base_t
 {
 public:
@@ -226,17 +199,17 @@ int mainplus(int argc, char* argv[])
 	ILog4zManager::getRef().start();
 
 	CCliHelper m_AppObj;
-	try 
-	{
+	//try 
+	//{
 		m_AppObj.LoadScript();
 		m_AppObj.Open();
         m_AppObj.TestScript();
         ILog4zManager::getRef().stop();
-	}
-	catch (exception& e)
-	{
-		LOGF("exception:"<<e.what());
-	}
+	//}
+	//catch (exception& e)
+	//{
+	//	LOGF("exception:"<<e.what());
+	//}
 
     //HeapDeinitialize();
 	return 0;

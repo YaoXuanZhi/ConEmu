@@ -25,8 +25,8 @@
     <Filter Include="modules\Cliplus">
       <UniqueIdentifier>{b6c8412c-6c5f-4d3e-b76f-b2ccd3200cd4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="modules\CharsetConvert">
-      <UniqueIdentifier>{ff1b5674-d322-445b-b4a1-809686c86627}</UniqueIdentifier>
+    <Filter Include="modules\spec">
+      <UniqueIdentifier>{31d9fab5-16ac-408e-be81-7a55a3e96177}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -747,8 +747,8 @@
     <ClInclude Include="modules\Cliplus\Cliplus.h">
       <Filter>modules\Cliplus</Filter>
     </ClInclude>
-    <ClInclude Include="modules\CharsetConvert\CharsetConvert.h">
-      <Filter>modules\CharsetConvert</Filter>
+    <ClInclude Include="modules\spec\CharsetConvert.h">
+      <Filter>modules\spec</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1133,8 +1133,8 @@
     <ClCompile Include="modules\Cliplus\Cliplus.cpp">
       <Filter>modules\Cliplus</Filter>
     </ClCompile>
-    <ClCompile Include="modules\CharsetConvert\CharsetConvert.cpp">
-      <Filter>modules\CharsetConvert</Filter>
+    <ClCompile Include="modules\spec\CharsetConvert.cpp">
+      <Filter>modules\spec</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
