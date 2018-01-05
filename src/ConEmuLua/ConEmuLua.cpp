@@ -1,4 +1,5 @@
 #include "ConEmuLua.h"
+#include "CPipeWrapper.h"
 
 #define USEMODALDLG
 
@@ -221,7 +222,19 @@ public:
     virtual ~CAppWnd() {}
 protected:
     LRESULT OnRButtonDBClick(WPARAM, LPARAM) {
-        EndDialog(IDCLOSE);
+        //CPipeWrapper pipe(GetCurrentThreadId());
+        CPipeWrapper pipe(GetCurrentThreadId());
+
+        if (pipe.Init(_T("CVirtualConsole::OnPanelViewSettingsChanged"), TRUE))
+        {
+            CESERVER_REQ_GUICHANGED lWindows = { sizeof(CESERVER_REQ_GUICHANGED) };
+            lWindows.nGuiPID = GetCurrentProcessId();
+            lWindows.hLeftView = NULL;
+            lWindows.hRightView = NULL;
+            pipe.Execute(CMD_GUICHANGED, &lWindows, sizeof(lWindows));
+        }
+
+        //EndDialog(IDCLOSE);
         return FALSE;
     }
 
